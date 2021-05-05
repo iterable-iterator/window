@@ -1,11 +1,11 @@
-import assert from 'assert';
 import {iter} from '@iterable-iterator/iter';
 import {list} from '@iterable-iterator/list';
-import {_take} from '@iterable-iterator/slice';
-import {deque} from '@data-structure/deque';
+import {map} from '@iterable-iterator/map';
+
+import _window from './_window.js';
 
 /**
- * Yields tuples that contain the current element of the input iterable and the
+ * Yields arrays that contain the current element of the input iterable and the
  * next <code>n-1</code> elements of the input iterable.
  *
  * @example
@@ -17,19 +17,5 @@ import {deque} from '@data-structure/deque';
  * @param {Iterable} iterable - The input iterable.
  * @returns {IterableIterator<Array>}
  */
-export default function* window(n, iterable) {
-	assert(Number.isInteger(n) && n > 0);
-
-	const iterator = iter(iterable);
-
-	const tuple = deque(_take(iterator, n), n);
-
-	if (tuple.length < n) return;
-
-	yield list(tuple);
-
-	for (const value of iterator) {
-		tuple.append(value);
-		yield list(tuple);
-	}
-}
+const window = (n, iterable) => map(list, _window(n, iter(iterable)));
+export default window;
