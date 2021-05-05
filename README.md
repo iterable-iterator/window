@@ -4,12 +4,15 @@
 Iterable windowed iteration for JavaScript.
 See [docs](https://iterable-iterator.github.io/window/index.html).
 
-> :building_construction: Caveat emptor! This is work in progress. Code may be
-> working. Documentation may be present. Coherence may be. Maybe.
-
 > :warning: Depending on your environment, the code may require
 > `regeneratorRuntime` to be defined, for instance by importing
 > [regenerator-runtime/runtime](https://www.npmjs.com/package/regenerator-runtime).
+
+```js
+import {window} from '@iterable-iterator/window';
+
+for (const [x, y] of window(2, 'abcde')) ... ; // ab bc cd de
+```
 
 [![License](https://img.shields.io/github/license/iterable-iterator/window.svg)](https://raw.githubusercontent.com/iterable-iterator/window/main/LICENSE)
 [![Version](https://img.shields.io/npm/v/@iterable-iterator/window.svg)](https://www.npmjs.org/package/@iterable-iterator/window)
