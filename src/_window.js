@@ -19,11 +19,7 @@ import {deque} from '@data-structure/deque';
 export default function* _window(n, iterator) {
 	assert(Number.isInteger(n) && n > 0);
 
-	const tuple = deque(_take(iterator, n), n);
-
-	if (tuple.length < n) return;
-
-	yield tuple;
+	const tuple = deque(_take(iterator, n - 1), n);
 
 	for (const value of iterator) {
 		yield tuple.append(value);
