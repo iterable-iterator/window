@@ -1,5 +1,6 @@
 import assert from 'assert';
 import {_take} from '@iterable-iterator/slice';
+import {map} from '@iterable-iterator/map';
 import {deque} from '@data-structure/deque';
 
 /**
@@ -16,12 +17,11 @@ import {deque} from '@data-structure/deque';
  * @param {IterableIterator} iterable - The input iterable.
  * @returns {IterableIterator}
  */
-export default function* _window(n, iterator) {
+const _window = (n, iterator) => {
 	assert(Number.isInteger(n) && n > 0);
 
 	const tuple = deque(_take(iterator, n - 1), n);
+	return map((value) => tuple.append(value), iterator);
+};
 
-	for (const value of iterator) {
-		yield tuple.append(value);
-	}
-}
+export default _window;
