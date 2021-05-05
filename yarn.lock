@@ -1207,6 +1207,13 @@
   dependencies:
     arrify "^1.0.1"
 
+"@data-structure/deque@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@data-structure/deque/-/deque-8.0.0.tgz#79e865b747b7d63e1b05861efe8183fad2e39c20"
+  integrity sha512-/LmJyugrdyFndrGDbecbM0d9vHTIAPUWXVA9aRvexKiID9u/GQITOZj74efKc507MyTEHjVAgBwR0MXgJL8EhA==
+  dependencies:
+    "@failure-abstraction/error" "^5.0.3"
+
 "@eslint/eslintrc@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.4.0.tgz#99cc0a0584d72f1df38b900fb062ba995f395547"
@@ -1222,7 +1229,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@failure-abstraction/error@^5.0.5":
+"@failure-abstraction/error@^5.0.3", "@failure-abstraction/error@^5.0.5":
   version "5.0.5"
   resolved "https://registry.yarnpkg.com/@failure-abstraction/error/-/error-5.0.5.tgz#0cf54ae8f76a025a8df015acd958192fb29a5e9a"
   integrity sha512-1wYCScLBgVzSrXWDNg6KqZPCTtrbduDIxGGx3OXfGXQgWusFC8vdgKL6XLycAgsv3FRx8jardWQGYnEHUCccQQ==
@@ -1231,6 +1238,11 @@
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.3.tgz#e45e384e4b8ec16bce2fd903af78450f6bf7ec98"
   integrity sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
+
+"@iterable-iterator/consume@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@iterable-iterator/consume/-/consume-0.0.1.tgz#a37a96aba64caf2c64b517b1d2529a5864482df2"
+  integrity sha512-z4a8wR6JciJTrV85itsNw8pcXlq44ktWmESp66em0gjAqSnaYtKyGwDFp2FdTuVa1+p+mO+WoC0XmSVMFYc3jQ==
 
 "@iterable-iterator/count@^0.0.1":
   version "0.0.1"
@@ -1268,6 +1280,15 @@
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@iterable-iterator/repeat/-/repeat-0.0.1.tgz#3475728b7feb093624a04f6e7abd4103f10c30c0"
   integrity sha512-WNuPt8H+p70TPG/CntJDcCHBPiYUA1SOVE/V45C0a9T/hr0ThRvn/Q+5diDaU3U3iJUH/Tqua+7S6ad0mS5Dzw==
+
+"@iterable-iterator/slice@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@iterable-iterator/slice/-/slice-0.0.1.tgz#62a8e15435714787659563ad0bc4138e52f5baf2"
+  integrity sha512-8U0wLGf3lgZY/MSvmkCwjVF6mivwp3MEY6gCBbD+I6qvJk2Xy7PAWK22lcg69kQKoqGc2HviGeLzDfMh1DNpGw==
+  dependencies:
+    "@data-structure/deque" "^8.0.0"
+    "@iterable-iterator/consume" "^0.0.1"
+    "@iterable-iterator/iter" "^0.0.2"
 
 "@iterable-iterator/zip@^0.0.2":
   version "0.0.2"

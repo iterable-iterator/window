@@ -1,5 +1,8 @@
+import assert from 'assert';
 import {iter} from '@iterable-iterator/iter';
-import {range} from '@iterable-iterator/range';
+import {list} from '@iterable-iterator/list';
+import {_take} from '@iterable-iterator/slice';
+import {deque} from '@data-structure/deque';
 
 /**
  * Yields tuples that contain the current element of the input iterable and the
@@ -15,31 +18,18 @@ import {range} from '@iterable-iterator/range';
  * @returns {IterableIterator<Array>}
  */
 export default function* window(n, iterable) {
-	// Could have an implementation using a deque
-	// that doesn't slice (and thus allocate a new
-	// vector everytime). Though the yield object
-	// could not be modified by the caller in that case.
+	assert(Number.isInteger(n) && n > 0);
 
 	const iterator = iter(iterable);
 
-	let tuple = [];
+	const tuple = deque(_take(iterator, n), n);
 
-	// eslint-disable-next-line no-unused-vars
-	for (const i of range(n)) {
-		const current = iterator.next();
+	if (tuple.length < n) return;
 
-		if (current.done) {
-			return;
-		}
-
-		tuple.push(current.value);
-	}
-
-	yield tuple;
+	yield list(tuple);
 
 	for (const value of iterator) {
-		tuple = tuple.slice(1);
-		tuple.push(value);
-		yield tuple;
+		tuple.append(value);
+		yield list(tuple);
 	}
 }
