@@ -24,3 +24,17 @@ test('window larger than input', (t) => {
 	const D = window(3, range(2));
 	t.deepEqual(list(D), [], 'empty');
 });
+
+test('string input', (t) => {
+	const iterable = window(2, 'abcde');
+	t.deepEqual(
+		list(iterable),
+		[
+			['a', 'b'],
+			['b', 'c'],
+			['c', 'd'],
+			['d', 'e'],
+		],
+		'empty',
+	);
+});
