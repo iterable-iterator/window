@@ -566,8 +566,74 @@
   {
     "__docId__": 48,
     "kind": "file",
+    "name": "src/_window.js",
+    "content": "import assert from 'assert';\nimport {_take} from '@iterable-iterator/slice';\nimport {map} from '@iterable-iterator/map';\nimport {deque} from '@data-structure/deque';\n\n/**\n * Repeatedly yields the same deque that is updated to contain the current\n * element of the input iterable iterator and the next <code>n-1</code>\n * elements of the input iterable iterator.\n *\n * @example\n * window( 2, range( 100 ) ) ;\n * // is equivalent to\n * zip( range( 100 ) , range( 1 , 100 ) ) ;\n *\n * @param {number} n - The window size.\n * @param {IterableIterator} iterable - The input iterable.\n * @returns {IterableIterator}\n */\nconst _window = (n, iterator) => {\n\tassert(Number.isInteger(n) && n > 0);\n\n\tconst tuple = deque(_take(iterator, n - 1), n);\n\treturn map((value) => tuple.append(value), iterator);\n};\n\nexport default _window;\n",
+    "static": true,
+    "longname": "/home/runner/work/window/window/src/_window.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "function",
+    "name": "_window",
+    "memberof": "src/_window.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/_window.js~_window",
+    "access": "private",
+    "export": true,
+    "importPath": "@iterable-iterator/window/src/_window.js",
+    "importStyle": "_window",
+    "description": "Repeatedly yields the same deque that is updated to contain the current\nelement of the input iterable iterator and the next <code>n-1</code>\nelements of the input iterable iterator.",
+    "examples": [
+      "window( 2, range( 100 ) ) ;\n// is equivalent to\nzip( range( 100 ) , range( 1 , 100 ) ) ;"
+    ],
+    "lineNumber": 20,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{IterableIterator}"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "n",
+        "description": "The window size."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "IterableIterator"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "iterable",
+        "description": "The input iterable."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "IterableIterator"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 50,
+    "kind": "file",
     "name": "src/index.js",
-    "content": "export {default as window} from './window.js';\n",
+    "content": "export {default as _window} from './_window.js';\nexport {default as window} from './window.js';\n",
     "static": true,
     "longname": "/home/runner/work/window/window/src/index.js",
     "access": "public",
@@ -575,10 +641,10 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 49,
+    "__docId__": 51,
     "kind": "file",
     "name": "src/window.js",
-    "content": "import {iter} from '@iterable-iterator/iter';\nimport {range} from '@iterable-iterator/range';\n\n/**\n * Yields tuples that contain the current element of the input iterable and the\n * next <code>n-1</code> elements of the input iterable.\n *\n * @example\n * window( range( 100 ) , 2 ) ;\n * // is equivalent to\n * zip( range( 100 ) , range( 1 , 100 ) ) ;\n *\n * @param {number} n - The window size.\n * @param {Iterable} iterable - The input iterable.\n * @returns {IterableIterator<Array>}\n */\nexport default function* window(n, iterable) {\n\t// Could have an implementation using a deque\n\t// that doesn't slice (and thus allocate a new\n\t// vector everytime). Though the yield object\n\t// could not be modified by the caller in that case.\n\n\tconst iterator = iter(iterable);\n\n\tlet tuple = [];\n\n\t// eslint-disable-next-line no-unused-vars\n\tfor (const i of range(n)) {\n\t\tconst current = iterator.next();\n\n\t\tif (current.done) {\n\t\t\treturn;\n\t\t}\n\n\t\ttuple.push(current.value);\n\t}\n\n\tyield tuple;\n\n\tfor (const value of iterator) {\n\t\ttuple = tuple.slice(1);\n\t\ttuple.push(value);\n\t\tyield tuple;\n\t}\n}\n",
+    "content": "import {iter} from '@iterable-iterator/iter';\nimport {list} from '@iterable-iterator/list';\nimport {map} from '@iterable-iterator/map';\n\nimport _window from './_window.js';\n\n/**\n * Yields arrays that contain the current element of the input iterable and the\n * next <code>n-1</code> elements of the input iterable.\n *\n * @example\n * window( 2, range( 100 ) ) ;\n * // is equivalent to\n * zip( range( 100 ) , range( 1 , 100 ) ) ;\n *\n * @param {number} n - The window size.\n * @param {Iterable} iterable - The input iterable.\n * @returns {IterableIterator<Array>}\n */\nconst window = (n, iterable) => map(list, _window(n, iter(iterable)));\nexport default window;\n",
     "static": true,
     "longname": "/home/runner/work/window/window/src/window.js",
     "access": "public",
@@ -586,11 +652,11 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 50,
+    "__docId__": 52,
     "kind": "function",
     "name": "window",
     "memberof": "src/window.js",
-    "generator": true,
+    "generator": false,
     "async": false,
     "static": true,
     "longname": "src/window.js~window",
@@ -598,11 +664,11 @@
     "export": true,
     "importPath": "@iterable-iterator/window/src/window.js",
     "importStyle": "window",
-    "description": "Yields tuples that contain the current element of the input iterable and the\nnext <code>n-1</code> elements of the input iterable.",
+    "description": "Yields arrays that contain the current element of the input iterable and the\nnext <code>n-1</code> elements of the input iterable.",
     "examples": [
-      "window( range( 100 ) , 2 ) ;\n// is equivalent to\nzip( range( 100 ) , range( 1 , 100 ) ) ;"
+      "window( 2, range( 100 ) ) ;\n// is equivalent to\nzip( range( 100 ) , range( 1 , 100 ) ) ;"
     ],
-    "lineNumber": 17,
+    "lineNumber": 20,
     "unknown": [
       {
         "tagName": "@returns",
@@ -650,7 +716,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@iterable-iterator/window\",\n  \"description\": \"Iterable windowed iteration for JavaScript\",\n  \"version\": \"0.0.1\",\n  \"license\": \"AGPL-3.0\",\n  \"author\": \"make-github-pseudonymous-again\",\n  \"homepage\": \"https://iterable-iterator.github.io/window\",\n  \"repository\": {\n    \"url\": \"https://github.com/iterable-iterator/window\",\n    \"type\": \"git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/iterable-iterator/window/issues\"\n  },\n  \"keywords\": [\n    \"frame\",\n    \"iter\",\n    \"iterable\",\n    \"iterator\",\n    \"window\"\n  ],\n  \"sideEffects\": false,\n  \"source\": \"src/index.js\",\n  \"main\": \"dist/index.js\",\n  \"module\": \"dist/index.module.js\",\n  \"esmodule\": \"dist/index.modern.js\",\n  \"umd:main\": \"dist/index.umd.js\",\n  \"unpkg\": \"dist/index.umd.js\",\n  \"exports\": {\n    \".\": {\n      \"browser\": \"./dist/index.module.js\",\n      \"umd\": \"./dist/index.umd.js\",\n      \"require\": \"./dist/index.js\",\n      \"default\": \"./dist/index.modern.js\"\n    }\n  },\n  \"files\": [\n    \"dist\"\n  ],\n  \"scripts\": {\n    \"build\": \"NODE_ENV=production microbundle\",\n    \"build-docs\": \"esdoc\",\n    \"build-gh-pages\": \"npm run build-docs\",\n    \"ci:test\": \"npm run lint-config && npm run lint && npm run cover\",\n    \"commit-msg\": \"commitlint --edit\",\n    \"cover\": \"NODE_ENV=cover c8 --all --src src --reporter lcov --reporter text-summary --reporter text npm test\",\n    \"debug\": \"NODE_ENV=debug npm run test -- -st --fail-fast\",\n    \"dev\": \"npm run lint-config-and-fix && npm run lint-and-fix && npm run cover -- -- -st --fail-fast\",\n    \"install-hooks\": \"husky install\",\n    \"lint\": \"xo\",\n    \"lint-and-fix\": \"npm run lint -- --fix\",\n    \"lint-config\": \"fixpack --dryRun\",\n    \"lint-config-and-fix\": \"fixpack || fixpack\",\n    \"postinstall\": \"npm run install-hooks\",\n    \"postpublish\": \"pinst --enable\",\n    \"precommit\": \"lint-staged\",\n    \"prepare\": \"npm run build\",\n    \"prepublishOnly\": \"pinst --disable\",\n    \"release\": \"np --message ':hatching_chick: release: Bumping to v%s.'\",\n    \"test\": \"ava\"\n  },\n  \"dependencies\": {\n    \"@iterable-iterator/iter\": \"^0.0.2\",\n    \"@iterable-iterator/range\": \"^1.0.0\"\n  },\n  \"devDependencies\": {\n    \"@babel/core\": \"7.14.0\",\n    \"@babel/preset-env\": \"7.14.0\",\n    \"@babel/register\": \"7.13.16\",\n    \"@commitlint/cli\": \"12.1.1\",\n    \"@iterable-iterator/list\": \"^0.0.2\",\n    \"@iterable-iterator/zip\": \"^0.0.2\",\n    \"@js-library/commitlint-config\": \"0.0.4\",\n    \"ava\": \"3.15.0\",\n    \"babel-plugin-transform-remove-console\": \"6.9.4\",\n    \"babel-plugin-unassert\": \"3.0.1\",\n    \"babel-preset-power-assert\": \"3.0.0\",\n    \"c8\": \"7.7.1\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"1.0.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"fixpack\": \"4.0.0\",\n    \"husky\": \"6.0.0\",\n    \"lint-staged\": \"10.5.4\",\n    \"microbundle\": \"0.13.0\",\n    \"np\": \"7.5.0\",\n    \"pinst\": \"2.1.6\",\n    \"power-assert\": \"1.6.1\",\n    \"regenerator-runtime\": \"0.13.7\",\n    \"xo\": \"0.39.1\"\n  },\n  \"ava\": {\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"require\": [\n      \"regenerator-runtime/runtime\",\n      \"@babel/register\"\n    ],\n    \"timeout\": \"1m\"\n  },\n  \"babel\": {\n    \"sourceMaps\": true,\n    \"presets\": [\n      [\n        \"@babel/preset-env\",\n        {\n          \"targets\": \"current node\"\n        }\n      ]\n    ],\n    \"plugins\": [\n      [\n        \"transform-remove-console\",\n        {\n          \"exclude\": [\n            \"log\",\n            \"error\",\n            \"warn\"\n          ]\n        }\n      ]\n    ],\n    \"env\": {\n      \"debug\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ],\n        \"plugins\": [\n          [\n            \"transform-remove-console\",\n            {\n              \"exclude\": [\n                \"debug\",\n                \"log\",\n                \"error\",\n                \"warn\"\n              ]\n            }\n          ]\n        ]\n      },\n      \"test\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"cover\": {\n        \"sourceMaps\": \"both\",\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"development\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ],\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"production\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ]\n        ],\n        \"plugins\": [\n          \"babel-plugin-unassert\"\n        ]\n      }\n    }\n  },\n  \"lint-staged\": {\n    \"*.js\": [\n      \"npm run lint-and-fix\"\n    ],\n    \"package.json\": [\n      \"npm run lint-config-and-fix\"\n    ]\n  },\n  \"prettier\": {\n    \"trailingComma\": \"all\"\n  },\n  \"xo\": {\n    \"prettier\": true,\n    \"plugins\": [\n      \"unicorn\"\n    ],\n    \"rules\": {\n      \"unicorn/filename-case\": [\n        \"error\",\n        {\n          \"cases\": {\n            \"camelCase\": true,\n            \"pascalCase\": true\n          }\n        }\n      ]\n    },\n    \"overrides\": [\n      {\n        \"files\": [\n          \"doc/**\"\n        ],\n        \"env\": \"browser\"\n      }\n    ]\n  }\n}\n",
+    "content": "{\n  \"name\": \"@iterable-iterator/window\",\n  \"description\": \"Iterable windowed iteration for JavaScript\",\n  \"version\": \"0.0.2\",\n  \"license\": \"AGPL-3.0\",\n  \"author\": \"make-github-pseudonymous-again\",\n  \"homepage\": \"https://iterable-iterator.github.io/window\",\n  \"repository\": {\n    \"url\": \"https://github.com/iterable-iterator/window\",\n    \"type\": \"git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/iterable-iterator/window/issues\"\n  },\n  \"keywords\": [\n    \"frame\",\n    \"iter\",\n    \"iterable\",\n    \"iterator\",\n    \"window\"\n  ],\n  \"sideEffects\": false,\n  \"source\": \"src/index.js\",\n  \"main\": \"dist/index.js\",\n  \"module\": \"dist/index.module.js\",\n  \"esmodule\": \"dist/index.modern.js\",\n  \"umd:main\": \"dist/index.umd.js\",\n  \"unpkg\": \"dist/index.umd.js\",\n  \"exports\": {\n    \".\": {\n      \"browser\": \"./dist/index.module.js\",\n      \"umd\": \"./dist/index.umd.js\",\n      \"require\": \"./dist/index.js\",\n      \"default\": \"./dist/index.modern.js\"\n    }\n  },\n  \"files\": [\n    \"dist\"\n  ],\n  \"scripts\": {\n    \"build\": \"NODE_ENV=production microbundle\",\n    \"build-docs\": \"esdoc\",\n    \"build-gh-pages\": \"npm run build-docs\",\n    \"ci:test\": \"npm run lint-config && npm run lint && npm run cover\",\n    \"commit-msg\": \"commitlint --edit\",\n    \"cover\": \"NODE_ENV=cover c8 --all --src src --reporter lcov --reporter text-summary --reporter text npm test\",\n    \"debug\": \"NODE_ENV=debug npm run test -- -st --fail-fast\",\n    \"dev\": \"npm run lint-config-and-fix && npm run lint-and-fix && npm run cover -- -- -st --fail-fast\",\n    \"install-hooks\": \"husky install\",\n    \"lint\": \"xo\",\n    \"lint-and-fix\": \"npm run lint -- --fix\",\n    \"lint-config\": \"fixpack --dryRun\",\n    \"lint-config-and-fix\": \"fixpack || fixpack\",\n    \"postinstall\": \"npm run install-hooks\",\n    \"postpublish\": \"pinst --enable\",\n    \"precommit\": \"lint-staged\",\n    \"prepare\": \"npm run build\",\n    \"prepublishOnly\": \"pinst --disable\",\n    \"release\": \"np --message ':hatching_chick: release: Bumping to v%s.'\",\n    \"test\": \"ava\"\n  },\n  \"dependencies\": {\n    \"@data-structure/deque\": \"^8.0.0\",\n    \"@iterable-iterator/iter\": \"^0.0.2\",\n    \"@iterable-iterator/list\": \"^0.0.2\",\n    \"@iterable-iterator/map\": \"^0.1.0\",\n    \"@iterable-iterator/slice\": \"^0.0.1\"\n  },\n  \"devDependencies\": {\n    \"@babel/core\": \"7.14.0\",\n    \"@babel/preset-env\": \"7.14.0\",\n    \"@babel/register\": \"7.13.16\",\n    \"@commitlint/cli\": \"12.1.1\",\n    \"@iterable-iterator/range\": \"^1.0.0\",\n    \"@iterable-iterator/zip\": \"^0.0.2\",\n    \"@js-library/commitlint-config\": \"0.0.4\",\n    \"ava\": \"3.15.0\",\n    \"babel-plugin-transform-remove-console\": \"6.9.4\",\n    \"babel-plugin-unassert\": \"3.0.1\",\n    \"babel-preset-power-assert\": \"3.0.0\",\n    \"c8\": \"7.7.1\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"1.0.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"fixpack\": \"4.0.0\",\n    \"husky\": \"6.0.0\",\n    \"lint-staged\": \"10.5.4\",\n    \"microbundle\": \"0.13.0\",\n    \"np\": \"7.5.0\",\n    \"pinst\": \"2.1.6\",\n    \"power-assert\": \"1.6.1\",\n    \"regenerator-runtime\": \"0.13.7\",\n    \"xo\": \"0.39.1\"\n  },\n  \"ava\": {\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"require\": [\n      \"regenerator-runtime/runtime\",\n      \"@babel/register\"\n    ],\n    \"timeout\": \"1m\"\n  },\n  \"babel\": {\n    \"sourceMaps\": true,\n    \"presets\": [\n      [\n        \"@babel/preset-env\",\n        {\n          \"targets\": \"current node\"\n        }\n      ]\n    ],\n    \"plugins\": [\n      [\n        \"transform-remove-console\",\n        {\n          \"exclude\": [\n            \"log\",\n            \"error\",\n            \"warn\"\n          ]\n        }\n      ]\n    ],\n    \"env\": {\n      \"debug\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ],\n        \"plugins\": [\n          [\n            \"transform-remove-console\",\n            {\n              \"exclude\": [\n                \"debug\",\n                \"log\",\n                \"error\",\n                \"warn\"\n              ]\n            }\n          ]\n        ]\n      },\n      \"test\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"cover\": {\n        \"sourceMaps\": \"both\",\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"development\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ],\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"production\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ]\n        ],\n        \"plugins\": [\n          \"babel-plugin-unassert\"\n        ]\n      }\n    }\n  },\n  \"lint-staged\": {\n    \"*.js\": [\n      \"npm run lint-and-fix\"\n    ],\n    \"package.json\": [\n      \"npm run lint-config-and-fix\"\n    ]\n  },\n  \"prettier\": {\n    \"trailingComma\": \"all\"\n  },\n  \"xo\": {\n    \"prettier\": true,\n    \"plugins\": [\n      \"unicorn\"\n    ],\n    \"rules\": {\n      \"unicorn/filename-case\": [\n        \"error\",\n        {\n          \"cases\": {\n            \"camelCase\": true,\n            \"pascalCase\": true\n          }\n        }\n      ]\n    },\n    \"overrides\": [\n      {\n        \"files\": [\n          \"doc/**\"\n        ],\n        \"env\": \"browser\"\n      }\n    ]\n  }\n}\n",
     "longname": "/home/runner/work/window/window/package.json",
     "name": "package.json",
     "static": true,

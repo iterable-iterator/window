@@ -1,1 +1,76 @@
-[]
+[
+  {
+    "name": "_window",
+    "filePath": "src/_window.js",
+    "lines": [
+      {
+        "lineNumber": 5,
+        "line": "/**"
+      },
+      {
+        "lineNumber": 6,
+        "line": " * Repeatedly yields the same deque that is updated to contain the current"
+      },
+      {
+        "lineNumber": 7,
+        "line": " * element of the input iterable iterator and the next <code>n-1</code>"
+      },
+      {
+        "lineNumber": 8,
+        "line": " * elements of the input iterable iterator."
+      },
+      {
+        "lineNumber": 9,
+        "line": " *"
+      },
+      {
+        "lineNumber": 10,
+        "line": " * @example"
+      },
+      {
+        "lineNumber": 11,
+        "line": " * window( 2, range( 100 ) ) ;"
+      },
+      {
+        "lineNumber": 12,
+        "line": " * // is equivalent to"
+      },
+      {
+        "lineNumber": 13,
+        "line": " * zip( range( 100 ) , range( 1 , 100 ) ) ;"
+      },
+      {
+        "lineNumber": 14,
+        "line": " *"
+      },
+      {
+        "lineNumber": 15,
+        "line": " * @param {number} n - The window size."
+      },
+      {
+        "lineNumber": 16,
+        "line": " * @param {IterableIterator} iterable - The input iterable."
+      },
+      {
+        "lineNumber": 17,
+        "line": " * @returns {IterableIterator}"
+      },
+      {
+        "lineNumber": 18,
+        "line": " */"
+      },
+      {
+        "lineNumber": 19,
+        "line": "const _window = (n, iterator) => {"
+      }
+    ],
+    "codeParams": [
+      "n",
+      "iterator"
+    ],
+    "docParams": [
+      "n",
+      "iterable"
+    ]
+  }
+]

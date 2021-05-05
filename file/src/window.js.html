@@ -29,21 +29,25 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-window">window</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-_window">_window</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-window">window</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/window.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {iter} from &apos;@iterable-iterator/iter&apos;;
-import {range} from &apos;@iterable-iterator/range&apos;;
+import {list} from &apos;@iterable-iterator/list&apos;;
+import {map} from &apos;@iterable-iterator/map&apos;;
+
+import _window from &apos;./_window.js&apos;;
 
 /**
- * Yields tuples that contain the current element of the input iterable and the
+ * Yields arrays that contain the current element of the input iterable and the
  * next &lt;code&gt;n-1&lt;/code&gt; elements of the input iterable.
  *
  * @example
- * window( range( 100 ) , 2 ) ;
+ * window( 2, range( 100 ) ) ;
  * // is equivalent to
  * zip( range( 100 ) , range( 1 , 100 ) ) ;
  *
@@ -51,35 +55,8 @@ import {range} from &apos;@iterable-iterator/range&apos;;
  * @param {Iterable} iterable - The input iterable.
  * @returns {IterableIterator&lt;Array&gt;}
  */
-export default function* window(n, iterable) {
-	// Could have an implementation using a deque
-	// that doesn&apos;t slice (and thus allocate a new
-	// vector everytime). Though the yield object
-	// could not be modified by the caller in that case.
-
-	const iterator = iter(iterable);
-
-	let tuple = [];
-
-	// eslint-disable-next-line no-unused-vars
-	for (const i of range(n)) {
-		const current = iterator.next();
-
-		if (current.done) {
-			return;
-		}
-
-		tuple.push(current.value);
-	}
-
-	yield tuple;
-
-	for (const value of iterator) {
-		tuple = tuple.slice(1);
-		tuple.push(value);
-		yield tuple;
-	}
-}
+const window = (n, iterable) =&gt; map(list, _window(n, iter(iterable)));
+export default window;
 </code></pre>
 
 </div>

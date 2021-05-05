@@ -1,5 +1,11 @@
 window.esdocSearchIndex = [
   [
+    "@iterable-iterator/window/src/_window.js~_window",
+    "function/index.html#static-function-_window",
+    "<span>_window</span> <span class=\"search-result-import-path\">@iterable-iterator/window/src/_window.js</span>",
+    "function"
+  ],
+  [
     "@iterable-iterator/window/src/window.js~window",
     "function/index.html#static-function-window",
     "<span>window</span> <span class=\"search-result-import-path\">@iterable-iterator/window/src/window.js</span>",
@@ -286,6 +292,12 @@ window.esdocSearchIndex = [
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
     "src/.external-ecmascript.js~undefined",
     "external"
+  ],
+  [
+    "src/_window.js",
+    "file/src/_window.js.html",
+    "src/_window.js",
+    "file"
   ],
   [
     "src/index.js",
