@@ -26,7 +26,6 @@ export default function* _window(n, iterator) {
 	yield tuple;
 
 	for (const value of iterator) {
-		tuple.append(value);
-		yield tuple;
+		yield tuple.append(value);
 	}
 }
