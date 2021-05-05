@@ -6,7 +6,7 @@ import {range} from '@iterable-iterator/range';
  * next <code>n-1</code> elements of the input iterable.
  *
  * @example
- * window( range( 100 ) , 2 ) ;
+ * window( 2, range( 100 ) ) ;
  * // is equivalent to
  * zip( range( 100 ) , range( 1 , 100 ) ) ;
  *
