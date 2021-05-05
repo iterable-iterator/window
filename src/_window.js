@@ -8,11 +8,6 @@ import {deque} from '@data-structure/deque';
  * element of the input iterable iterator and the next <code>n-1</code>
  * elements of the input iterable iterator.
  *
- * @example
- * window( 2, range( 100 ) ) ;
- * // is equivalent to
- * zip( range( 100 ) , range( 1 , 100 ) ) ;
- *
  * @param {number} n - The window size.
  * @param {IterableIterator} iterable - The input iterable.
  * @returns {IterableIterator}
