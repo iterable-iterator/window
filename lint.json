@@ -25,42 +25,22 @@
       },
       {
         "lineNumber": 10,
-        "line": " * @example"
-      },
-      {
-        "lineNumber": 11,
-        "line": " * window( 2, range( 100 ) ) ;"
-      },
-      {
-        "lineNumber": 12,
-        "line": " * // is equivalent to"
-      },
-      {
-        "lineNumber": 13,
-        "line": " * zip( range( 100 ) , range( 1 , 100 ) ) ;"
-      },
-      {
-        "lineNumber": 14,
-        "line": " *"
-      },
-      {
-        "lineNumber": 15,
         "line": " * @param {number} n - The window size."
       },
       {
-        "lineNumber": 16,
+        "lineNumber": 11,
         "line": " * @param {IterableIterator} iterable - The input iterable."
       },
       {
-        "lineNumber": 17,
+        "lineNumber": 12,
         "line": " * @returns {IterableIterator}"
       },
       {
-        "lineNumber": 18,
+        "lineNumber": 13,
         "line": " */"
       },
       {
-        "lineNumber": 19,
+        "lineNumber": 14,
         "line": "const _window = (n, iterator) => {"
       }
     ],
