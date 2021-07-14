@@ -1915,6 +1915,13 @@
   dependencies:
     "@failure-abstraction/error" "^5.0.3"
 
+"@data-structure/deque@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@data-structure/deque/-/deque-9.0.0.tgz#8bb8ac1ddff0211388f685e704b115246964fb2b"
+  integrity sha512-n2z2PgMIsNXsdu5FWDkvvL+VlHqRb0BiyrhlKStJjJoXFyLSPsS9+IwCiQ2tjgIrDLXZptytfOegKSmDzow6aQ==
+  dependencies:
+    "@failure-abstraction/error" "^6.0.0"
+
 "@eslint/eslintrc@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.4.0.tgz#99cc0a0584d72f1df38b900fb062ba995f395547"
@@ -1934,6 +1941,11 @@
   version "5.0.5"
   resolved "https://registry.yarnpkg.com/@failure-abstraction/error/-/error-5.0.5.tgz#0cf54ae8f76a025a8df015acd958192fb29a5e9a"
   integrity sha512-1wYCScLBgVzSrXWDNg6KqZPCTtrbduDIxGGx3OXfGXQgWusFC8vdgKL6XLycAgsv3FRx8jardWQGYnEHUCccQQ==
+
+"@failure-abstraction/error@^6.0.0":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@failure-abstraction/error/-/error-6.0.1.tgz#ab6929395c7ed3ec74d86db2976e74e31f9569e2"
+  integrity sha512-KvIHhvwfrgbUduQbk55WRDGL2XcXjDLwleId+pSnK7mUUIY7zMGMy3N+ouDcOFymme48tKDlarKsYj5mEEd3fg==
 
 "@istanbuljs/schema@^0.1.2":
   version "0.1.3"
