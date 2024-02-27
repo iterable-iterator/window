@@ -4,7 +4,7 @@ import {range} from '@iterable-iterator/range';
 import {zip} from '@iterable-iterator/zip';
 import {list} from '@iterable-iterator/list';
 
-import {window} from '../../src/index.js';
+import {window} from '#module';
 
 test('compare to zip output', (t) => {
 	const A = window(2, range(100));
