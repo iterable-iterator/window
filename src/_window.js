@@ -1,7 +1,8 @@
 import assert from 'assert';
-import {_take} from '@iterable-iterator/slice';
-import {map} from '@iterable-iterator/map';
+
 import {deque} from '@data-structure/deque';
+import {map} from '@iterable-iterator/map';
+import {_take} from '@iterable-iterator/slice';
 
 /**
  * Repeatedly yields the same deque that is updated to contain the current

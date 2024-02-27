@@ -1,8 +1,8 @@
 import test from 'ava';
 
+import {list} from '@iterable-iterator/list';
 import {range} from '@iterable-iterator/range';
 import {zip} from '@iterable-iterator/zip';
-import {list} from '@iterable-iterator/list';
 
 import {window} from '#module';
 
